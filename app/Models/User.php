@@ -10,14 +10,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Spatie\Permission\Traits\HasRoles;
 
+/**
+ * @property Carbon|null $hire_date
+ * @property $weekly_working_days
+ * @property $has_severe_disability
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory;
-    use Notifiable;
     use HasRoles;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -30,7 +36,7 @@ class User extends Authenticatable
         'password',
         'hire_date',
         'weekly_working_days',
-        'has_severe_disability'
+        'has_severe_disability',
     ];
 
     /**
@@ -45,8 +51,6 @@ class User extends Authenticatable
 
     /**
      * Get all expenses for the user.
-     *
-     * @return HasMany
      */
     public function expenses(): HasMany
     {
@@ -55,8 +59,6 @@ class User extends Authenticatable
 
     /**
      * Get all leave requests for the user.
-     *
-     * @return HasMany
      */
     public function leaveRequests(): HasMany
     {
