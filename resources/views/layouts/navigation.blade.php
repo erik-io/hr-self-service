@@ -21,6 +21,12 @@
                     <x-nav-link :href="route('expenses.create')" :active="request()->routeIs('expenses.create')">
                         {{ __('New Expense') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('leave-requests.index')" :active="request()->routeIs('leave-requests.index', 'leave-requests.show')">
+                        {{ __('leave-requests.history') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('leave-requests.create')" :active="request()->routeIs('leave-requests.create')">
+                        {{ __('New Leave Request') }}
+                    </x-nav-link>
                     @endrole
                     {{-- Supervisor Navigation --}}
                     @role('supervisor')
@@ -31,6 +37,10 @@
                     <x-nav-link :href="route('expenses.management.history')"
                                 :active="request()->routeIs('expenses.management.history')">
                         {{ __('All Expenses') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('leave-requests.management.index')"
+                                :active="request()->routeIs('leave-requests.management.*')">
+                        {{ __('Manage Leave Requests') }}
                     </x-nav-link>
                     @endrole
                     @else
@@ -113,6 +123,13 @@
             <x-responsive-nav-link :href="route('expenses.create')" :active="request()->routeIs('expenses.create')">
                 {{ __('New Expense') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('leave-requests.index')"
+                                   :active="request()->routeIs('leave-requests.index', 'leave-requests.show')">
+                {{ __('leave-requests.history') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('leave-requests.create')" :active="request()->routeIs('leave-requests.create')">
+                {{ __('New Leave Request') }}
+            </x-responsive-nav-link>
             @endrole
             {{-- Supervisor Navigation --}}
             @role('supervisor')
@@ -123,6 +140,10 @@
             <x-responsive-nav-link :href="route('expenses.management.history')"
                                    :active="request()->routeIs('expenses.management.history')">
                 {{ __('All Expenses') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('leave-requests.management.index')"
+                                   :active="request()->routeIs('leave-requests.management.*')">
+                {{ __('Manage Leave Requests') }}
             </x-responsive-nav-link>
             @endrole
             @else

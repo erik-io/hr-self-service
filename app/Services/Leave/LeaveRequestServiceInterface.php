@@ -6,6 +6,7 @@ namespace App\Services\Leave;
 
 use App\Models\LeaveRequest;
 use DomainException;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 use InvalidArgumentException;
 
@@ -30,5 +31,10 @@ interface LeaveRequestServiceInterface
     /**
      * Checks if a proposed date range overlaps with existing non-rejected requests for a user.
      */
-    public function hasOverlappingRequests(int $userId, Carbon $startDate, Carbon $endDate): bool;
+    public function getOverlappingRequests(int $userId, Carbon $startDate, Carbon $endDate): Collection;
+
+    /**
+     * Checks if a proposed date range overlaps with existing non-rejected requests for any team member except the specified user.
+     */
+    public function getTeamOverlappingRequests(Carbon $startDate, Carbon $endDate, int $excludeUserId): Collection;
 }

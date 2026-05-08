@@ -323,5 +323,28 @@
     "Yes, Approve": "Yes, Approve",
     "You are receiving this email because we received a password reset request for your account.": "You are receiving this email because we received a password reset request for your account.",
     "You're logged in!": "You're logged in!",
-    "Your email address is unverified.": "Your email address is unverified."
+    "Your email address is unverified.": "Your email address is unverified.",
+    "Manage Leave Requests": "Manage Leave Requests",
+    "New Leave Request": "New Leave Request",
+    "Your Vacation Status": "Your Vacation Status",
+    "Overview of your leave days for the current year.": "Overview of your leave days for the current year.",
+    "Days Remaining": "Days Remaining",
+    "Note:": "Note:",
+    "Absence Type": "Absence Type",
+    "Start Date": "Start Date",
+    "End Date": "End Date",
+    "Submit Request": "Submit Request",
+    "Review": "Review",
+    "No leave requests found.": "No leave requests found.",
+    "Period": "Period",
+    "Type": "Type"
+    ,
+    "Leave Requests": "Leave Requests",
+    "Team Capacity Check": "Team Capacity Check",
+    "No overlaps detected. The team is fully staffed during this period.": "No overlaps detected. The team is fully staffed during this period."
+    ,
+    "Vacation": "Vacation",
+    "Sick Leave": "Sick Leave",
+    "Unpaid Leave": "Unpaid Leave",
+    "Parental Leave": "Parental Leave"
 }

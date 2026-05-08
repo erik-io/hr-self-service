@@ -5,6 +5,8 @@ declare(strict_types=1);
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ExpenseManagementController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\LeaveRequestController;
+use App\Http\Controllers\LeaveRequestManagementController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -64,6 +66,35 @@ Route::middleware(['auth', 'verified'])
                 // Approving or rejecting an expense
                 Route::patch('/{expense}/approve', [ExpenseManagementController::class, 'approve'])->name('approve');
                 Route::patch('/{expense}/reject', [ExpenseManagementController::class, 'reject'])->name('reject');
+            });
+    });
+
+Route::middleware(['auth', 'verified'])
+    ->prefix('leave-requests')
+    ->name('leave-requests.')
+    ->group(function () {
+
+        Route::middleware(['role:employee'])->group(function () {
+            Route::get('/', [LeaveRequestController::class, 'index'])->name('index');
+            Route::get('/create', [LeaveRequestController::class, 'create'])->name('create');
+            Route::post('/', [LeaveRequestController::class, 'store'])->name('store');
+            Route::get('/check-occupancy', [LeaveRequestController::class, 'checkOccupancy'])->name('check-occupancy');
+        });
+
+        Route::middleware(['role:supervisor'])
+            ->prefix('management')
+            ->name('management.')
+            ->group(function () {
+                Route::get('/', [LeaveRequestManagementController::class, 'index'])->name('index');
+                Route::get('/{leaveRequest}', [LeaveRequestManagementController::class, 'show'])->name('show');
+                Route::patch('/{leaveRequest}/approve', [LeaveRequestManagementController::class, 'approve'])->name('approve');
+                Route::patch('/{leaveRequest}/reject', [LeaveRequestManagementController::class, 'reject'])->name('reject');
+            });
+
+        Route::middleware(['role:employee'])
+            ->whereNumber('leaveRequest')
+            ->group(function () {
+                Route::get('/{leaveRequest}', [LeaveRequestController::class, 'show'])->name('show');
             });
     });
 

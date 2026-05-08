@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Leave;
 
 use App\Models\User;
-use http\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 
 class LeaveEntitlementService implements LeaveEntitlementCalculatorInterface
 {
@@ -24,7 +24,7 @@ class LeaveEntitlementService implements LeaveEntitlementCalculatorInterface
             throw new InvalidArgumentException('User must have a hire date to calculate leave entitlement.');
         }
 
-        $baseEntitlement = $this->calculateBaseEntitlement($user->weeky_working_days);
+        $baseEntitlement = $this->calculateBaseEntitlement($user->weekly_working_days);
         $disabilityBonus = $this->calculateDisabilityBonus($user);
         $loyaltyBonus = $this->calculateLoyaltyBonus($user, $year);
 

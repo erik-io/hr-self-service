@@ -6,6 +6,7 @@ namespace App\Services\Leave;
 
 use App\Models\LeaveRequest;
 use App\Services\Leave\State\LeaveRequestStateFactory;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 
 class LeaveRequestService implements LeaveRequestServiceInterface
@@ -31,9 +32,10 @@ class LeaveRequestService implements LeaveRequestServiceInterface
     /**
      * {@inheritDoc}
      */
-    public function hasOverlappingRequests(int $userId, Carbon $startDate, Carbon $endDate): bool
+    public function getOverlappingRequests(int $userId, Carbon $startDate, Carbon $endDate): Collection
     {
-        return LeaveRequest::where('user_id', $userId)
+        return LeaveRequest::with('absenceType')
+            ->where('user_id', $userId)
             ->whereIn('status', ['pending', 'approved'])
             ->where(function ($query) use ($startDate, $endDate) {
                 $query->whereBetween('start_date', [$startDate, $endDate])
@@ -43,6 +45,25 @@ class LeaveRequestService implements LeaveRequestServiceInterface
                             ->where('end_date', '>=', $endDate);
                     });
             })
-            ->exists();
+            ->get();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTeamOverlappingRequests(Carbon $startDate, Carbon $endDate, int $excludeUserId): Collection
+    {
+        return LeaveRequest::with(['user', 'absenceType'])
+            ->where('user_id', '!=', $excludeUserId)
+            ->whereIn('status', ['pending', 'approved'])
+            ->where(function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('start_date', [$startDate, $endDate])
+                    ->orWhereBetween('end_date', [$startDate, $endDate])
+                    ->orWhere(function ($q) use ($startDate, $endDate) {
+                        $q->where('start_date', '<=', $startDate)
+                            ->where('end_date', '>=', $endDate);
+                    });
+            })
+            ->get();
     }
 }
