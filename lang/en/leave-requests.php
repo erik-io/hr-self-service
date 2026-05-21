@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     // Page titles
     'manage' => 'Manage Leave Requests',
@@ -44,4 +46,3 @@ return [
         'rejected' => 'Leave request rejected successfully.',
     ],
 ];
-

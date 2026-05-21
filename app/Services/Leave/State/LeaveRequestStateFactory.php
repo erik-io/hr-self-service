@@ -11,9 +11,9 @@ class LeaveRequestStateFactory
     public static function make(string $status): LeaveRequestStateInterface
     {
         return match ($status) {
-            'pending' => new PendingState,
-            'approved' => new ApprovedState,
-            'rejected' => new RejectedState,
+            'pending' => new PendingState(),
+            'approved' => new ApprovedState(),
+            'rejected' => new RejectedState(),
             default => throw new InvalidArgumentException("Invalid state: $status"),
         };
     }

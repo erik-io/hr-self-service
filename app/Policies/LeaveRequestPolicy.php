@@ -19,4 +19,3 @@ class LeaveRequestPolicy
         return $user->hasRole('employee') && $leaveRequest->user_id === $user->id;
     }
 }
-

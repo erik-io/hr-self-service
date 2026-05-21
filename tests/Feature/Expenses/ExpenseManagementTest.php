@@ -343,7 +343,7 @@ class ExpenseManagementTest extends TestCase
             ->get(route('expenses.management.history', ['status' => Expense::STATUS_APPROVED]))
             ->assertOk()
             ->assertViewHas('expenses', function ($paginator) {
-                return collect($paginator->items())->every(fn($expense) => $expense->status === Expense::STATUS_APPROVED);
+                return collect($paginator->items())->every(fn ($expense) => $expense->status === Expense::STATUS_APPROVED);
             });
 
         // Filter only pending
@@ -351,7 +351,7 @@ class ExpenseManagementTest extends TestCase
             ->get(route('expenses.management.history', ['status' => Expense::STATUS_PENDING]))
             ->assertOk()
             ->assertViewHas('expenses', function ($paginator) {
-                return collect($paginator->items())->every(fn($expense) => $expense->status === Expense::STATUS_PENDING);
+                return collect($paginator->items())->every(fn ($expense) => $expense->status === Expense::STATUS_PENDING);
             });
 
         // Filter only rejected
@@ -359,7 +359,7 @@ class ExpenseManagementTest extends TestCase
             ->get(route('expenses.management.history', ['status' => Expense::STATUS_REJECTED]))
             ->assertOk()
             ->assertViewHas('expenses', function ($paginator) {
-                return collect($paginator->items())->every(fn($expense) => $expense->status === Expense::STATUS_REJECTED);
+                return collect($paginator->items())->every(fn ($expense) => $expense->status === Expense::STATUS_REJECTED);
             });
     }
 

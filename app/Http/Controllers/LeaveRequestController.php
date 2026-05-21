@@ -6,10 +6,10 @@ namespace App\Http\Controllers;
 
 use App\Models\AbsenceType;
 use App\Models\LeaveRequest;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Services\Leave\LeaveDurationCalculatorInterface;
 use App\Services\Leave\LeaveEntitlementCalculatorInterface;
 use App\Services\Leave\LeaveRequestServiceInterface;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -24,7 +24,8 @@ class LeaveRequestController extends Controller
         private readonly LeaveRequestServiceInterface $leaveRequestService,
         private readonly LeaveDurationCalculatorInterface $durationService,
         private readonly LeaveEntitlementCalculatorInterface $entitlementService
-    ) {}
+    ) {
+    }
 
     public function index(Request $request): View
     {

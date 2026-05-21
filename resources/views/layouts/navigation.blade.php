@@ -22,10 +22,10 @@
                         {{ __('New Expense') }}
                     </x-nav-link>
                     <x-nav-link :href="route('leave-requests.index')" :active="request()->routeIs('leave-requests.index', 'leave-requests.show')">
-                        {{ __('leave-requests.history') }}
+                        {{ __('My Absences') }}
                     </x-nav-link>
                     <x-nav-link :href="route('leave-requests.create')" :active="request()->routeIs('leave-requests.create')">
-                        {{ __('New Leave Request') }}
+                        {{ __('New Absence') }}
                     </x-nav-link>
                     @endrole
                     {{-- Supervisor Navigation --}}
@@ -125,10 +125,10 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('leave-requests.index')"
                                    :active="request()->routeIs('leave-requests.index', 'leave-requests.show')">
-                {{ __('leave-requests.history') }}
+                {{ __('My Absences') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('leave-requests.create')" :active="request()->routeIs('leave-requests.create')">
-                {{ __('New Leave Request') }}
+                {{ __('New Absence') }}
             </x-responsive-nav-link>
             @endrole
             {{-- Supervisor Navigation --}}

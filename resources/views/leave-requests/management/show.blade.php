@@ -71,7 +71,8 @@
                     class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                 >
                     @if ($errors->any() && !$errors->has('rejection_reason'))
-                        <div class="mb-4 p-4 bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-200 rounded">
+                        <div
+                            class="mb-4 p-4 bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-200 rounded">
                             <strong>{{ __('Error') }}</strong>
                             <ul>
                                 @foreach ($errors->all() as $error)
@@ -84,7 +85,8 @@
                     <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">{{ __('Actions') }}</h3>
 
                     <div x-show="!showRejectForm" x-transition class="flex flex-col sm:flex-row gap-4">
-                        <form method="POST" action="{{ route('leave-requests.management.approve', $leaveRequest) }}" class="flex-1">
+                        <form method="POST" action="{{ route('leave-requests.management.approve', $leaveRequest) }}"
+                              class="flex-1">
                             @csrf
                             @method('PATCH')
                             <x-primary-button
@@ -93,7 +95,8 @@
                             </x-primary-button>
                         </form>
 
-                        <x-danger-button type="button" class="w-full justify-center sm:flex-1" @click="showRejectForm = true">
+                        <x-danger-button type="button" class="w-full justify-center sm:flex-1"
+                                         @click="showRejectForm = true">
                             {{ __('Reject') }}
                         </x-danger-button>
                     </div>
@@ -124,7 +127,8 @@
                                 {{ __('Confirm Rejection') }}
                             </x-danger-button>
 
-                            <x-secondary-button type="button" class="w-full justify-center sm:flex-1" @click="showRejectForm = false">
+                            <x-secondary-button type="button" class="w-full justify-center sm:flex-1"
+                                                @click="showRejectForm = false">
                                 {{ __('Cancel') }}
                             </x-secondary-button>
                         </div>
