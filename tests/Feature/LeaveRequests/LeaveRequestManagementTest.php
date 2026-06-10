@@ -15,7 +15,9 @@ class LeaveRequestManagementTest extends TestCase
     use RefreshDatabase;
 
     private User $supervisor;
+
     private User $employee;
+
     private AbsenceType $vacationType;
 
     protected function setUp(): void
@@ -31,17 +33,6 @@ class LeaveRequestManagementTest extends TestCase
         $this->employee->assignRole('employee');
 
         $this->vacationType = AbsenceType::where('name', 'Vacation')->first();
-    }
-
-    private function createPendingLeaveRequest(): LeaveRequest
-    {
-        return LeaveRequest::create([
-            'user_id' => $this->employee->id,
-            'absence_type_id' => $this->vacationType->id,
-            'start_date' => '2026-08-03',
-            'end_date' => '2026-08-07',
-            'status' => 'pending',
-        ]);
     }
 
     // US3 AC1: Supervisor sees all pending requests
@@ -62,7 +53,7 @@ class LeaveRequestManagementTest extends TestCase
             ->get(route('leave-requests.management.index'));
 
         $response->assertOk();
-        $response->assertViewHas('leaveRequests', fn($requests) => $requests->contains($pending));
+        $response->assertViewHas('leaveRequests', fn ($requests) => $requests->contains($pending));
     }
 
     public function test_management_index_shows_only_pending_requests(): void
@@ -211,5 +202,16 @@ class LeaveRequestManagementTest extends TestCase
             ->patch(route('leave-requests.management.approve', $leaveRequest));
 
         $response->assertRedirect(route('leave-requests.management.index'));
+    }
+
+    private function createPendingLeaveRequest(): LeaveRequest
+    {
+        return LeaveRequest::create([
+            'user_id' => $this->employee->id,
+            'absence_type_id' => $this->vacationType->id,
+            'start_date' => '2026-08-03',
+            'end_date' => '2026-08-07',
+            'status' => 'pending',
+        ]);
     }
 }

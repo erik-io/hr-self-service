@@ -15,7 +15,9 @@ class LeaveRequestManagementShowTest extends TestCase
     use RefreshDatabase;
 
     private User $supervisor;
+
     private User $employee;
+
     private AbsenceType $vacationType;
 
     protected function setUp(): void
@@ -31,17 +33,6 @@ class LeaveRequestManagementShowTest extends TestCase
         $this->employee->assignRole('employee');
 
         $this->vacationType = AbsenceType::where('name', 'Vacation')->first();
-    }
-
-    private function createLeaveRequest(string $status = 'pending', ?User $user = null): LeaveRequest
-    {
-        return LeaveRequest::create([
-            'user_id' => ($user ?? $this->employee)->id,
-            'absence_type_id' => $this->vacationType->id,
-            'start_date' => '2026-08-04',
-            'end_date' => '2026-08-06',
-            'status' => $status,
-        ]);
     }
 
     // History route
@@ -169,7 +160,7 @@ class LeaveRequestManagementShowTest extends TestCase
         $response = $this->actingAs($this->supervisor)
             ->get(route('leave-requests.management.show', $leaveRequest));
 
-        $response->assertViewHas('leaveRequest', fn($lr) => $lr->id === $leaveRequest->id);
+        $response->assertViewHas('leaveRequest', fn ($lr) => $lr->id === $leaveRequest->id);
     }
 
     public function test_show_passes_team_overlaps_to_view(): void
@@ -200,7 +191,7 @@ class LeaveRequestManagementShowTest extends TestCase
         $response = $this->actingAs($this->supervisor)
             ->get(route('leave-requests.management.show', $leaveRequest));
 
-        $response->assertViewHas('teamOverlaps', fn($overlaps) => $overlaps->contains($overlapping));
+        $response->assertViewHas('teamOverlaps', fn ($overlaps) => $overlaps->contains($overlapping));
     }
 
     public function test_show_team_overlaps_excludes_own_requests(): void
@@ -218,7 +209,7 @@ class LeaveRequestManagementShowTest extends TestCase
         $response = $this->actingAs($this->supervisor)
             ->get(route('leave-requests.management.show', $leaveRequest));
 
-        $response->assertViewHas('teamOverlaps', fn($overlaps) => !$overlaps->contains($ownOther));
+        $response->assertViewHas('teamOverlaps', fn ($overlaps) => !$overlaps->contains($ownOther));
     }
 
     public function test_employee_cannot_access_management_show(): void
@@ -275,5 +266,16 @@ class LeaveRequestManagementShowTest extends TestCase
             ]);
 
         $response->assertSessionHas('success');
+    }
+
+    private function createLeaveRequest(string $status = 'pending', ?User $user = null): LeaveRequest
+    {
+        return LeaveRequest::create([
+            'user_id' => ($user ?? $this->employee)->id,
+            'absence_type_id' => $this->vacationType->id,
+            'start_date' => '2026-08-04',
+            'end_date' => '2026-08-06',
+            'status' => $status,
+        ]);
     }
 }

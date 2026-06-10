@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services\Leave;
 
-use InvalidArgumentException;
 use Illuminate\Support\Carbon;
+use InvalidArgumentException;
 use Spatie\Holidays\Holidays;
 
 class LeaveDurationService implements LeaveDurationCalculatorInterface

@@ -16,7 +16,9 @@ class LeaveRequestStoreTest extends TestCase
     use RefreshDatabase;
 
     private User $employee;
+
     private AbsenceType $vacationType;
+
     private AbsenceType $sickLeaveType;
 
     protected function setUp(): void

@@ -15,7 +15,9 @@ class LeaveRequestIndexTest extends TestCase
     use RefreshDatabase;
 
     private User $employee;
+
     private User $otherEmployee;
+
     private AbsenceType $vacationType;
 
     protected function setUp(): void
@@ -59,7 +61,7 @@ class LeaveRequestIndexTest extends TestCase
             ->get(route('leave-requests.index'));
 
         $response->assertOk();
-        $response->assertViewHas('leaveRequests', fn($requests) => $requests->contains($ownRequest));
+        $response->assertViewHas('leaveRequests', fn ($requests) => $requests->contains($ownRequest));
     }
 
     // US4 AC3: Employee only sees their own requests, not those of other employees
@@ -105,7 +107,7 @@ class LeaveRequestIndexTest extends TestCase
 
         $response->assertOk();
         // The view uses a translated status badge; the status value is used in the match expression
-        $response->assertViewHas('leaveRequests', fn($r) => $r->first()->status === 'pending');
+        $response->assertViewHas('leaveRequests', fn ($r) => $r->first()->status === 'pending');
     }
 
     // US4 AC2: Employee can see the rejection reason on a rejected request
@@ -145,7 +147,7 @@ class LeaveRequestIndexTest extends TestCase
             ->get(route('leave-requests.show', $pendingRequest));
 
         $response->assertOk();
-        $response->assertViewHas('leaveRequest', fn($lr) => empty($lr->rejection_reason));
+        $response->assertViewHas('leaveRequest', fn ($lr) => empty($lr->rejection_reason));
     }
 
     // US4 AC3: Employee cannot access another employee's request details
@@ -190,7 +192,7 @@ class LeaveRequestIndexTest extends TestCase
             ->get(route('leave-requests.index', ['per_page' => 999]));
 
         $response->assertOk();
-        $response->assertViewHas('leaveRequests', fn($r) => $r->perPage() === 10);
+        $response->assertViewHas('leaveRequests', fn ($r) => $r->perPage() === 10);
     }
 
     public function test_index_falls_back_to_default_sort_by_for_invalid_column(): void

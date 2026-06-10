@@ -17,9 +17,13 @@ class VacationDayDeductionTest extends TestCase
     use RefreshDatabase;
 
     private User $employee;
+
     private AbsenceType $vacationType;
+
     private AbsenceType $sickLeaveType;
+
     private AbsenceType $parentalLeaveType;
+
     private AbsenceType $unpaidLeaveType;
 
     protected function setUp(): void
@@ -38,14 +42,6 @@ class VacationDayDeductionTest extends TestCase
         $this->sickLeaveType = AbsenceType::where('name', 'Sick Leave')->first();
         $this->parentalLeaveType = AbsenceType::where('name', 'Parental Leave')->first();
         $this->unpaidLeaveType = AbsenceType::where('name', 'Unpaid Leave')->first();
-    }
-
-    private function getRemainingDays(): int
-    {
-        return $this->actingAs($this->employee)
-            ->get(route('leave-requests.create'))
-            ->assertOk()
-            ->viewData('remainingDays');
     }
 
     public function test_approved_vacation_request_reduces_remaining_days(): void
@@ -284,5 +280,13 @@ class VacationDayDeductionTest extends TestCase
             'absence_type_id' => $this->unpaidLeaveType->id,
             'status' => 'pending',
         ]);
+    }
+
+    private function getRemainingDays(): int
+    {
+        return $this->actingAs($this->employee)
+            ->get(route('leave-requests.create'))
+            ->assertOk()
+            ->viewData('remainingDays');
     }
 }

@@ -19,15 +19,6 @@ class LeaveEntitlementCalculationTest extends TestCase
         $this->service = new LeaveEntitlementService();
     }
 
-    private function makeUser(string $hireDate, int $weeklyWorkingDays = 5, bool $hasSevereDisability = false): User
-    {
-        return new User([
-            'hire_date' => $hireDate,
-            'weekly_working_days' => $weeklyWorkingDays,
-            'has_severe_disability' => $hasSevereDisability,
-        ]);
-    }
-
     // US2 AC2: Entitlement = base entitlement + loyalty bonus + disability bonus
 
     public function test_full_time_employee_receives_30_base_days(): void
@@ -156,5 +147,14 @@ class LeaveEntitlementCalculationTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
 
         $this->service->calculateAnnualEntitlement($user, 2026);
+    }
+
+    private function makeUser(string $hireDate, int $weeklyWorkingDays = 5, bool $hasSevereDisability = false): User
+    {
+        return new User([
+            'hire_date' => $hireDate,
+            'weekly_working_days' => $weeklyWorkingDays,
+            'has_severe_disability' => $hasSevereDisability,
+        ]);
     }
 }

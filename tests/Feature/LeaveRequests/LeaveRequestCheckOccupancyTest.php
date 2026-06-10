@@ -15,7 +15,9 @@ class LeaveRequestCheckOccupancyTest extends TestCase
     use RefreshDatabase;
 
     private User $employee;
+
     private AbsenceType $vacationType;
+
     private AbsenceType $sickLeaveType;
 
     protected function setUp(): void
@@ -29,13 +31,6 @@ class LeaveRequestCheckOccupancyTest extends TestCase
 
         $this->vacationType = AbsenceType::where('name', 'Vacation')->first();
         $this->sickLeaveType = AbsenceType::where('name', 'Sick Leave')->first();
-    }
-
-    private function checkOccupancy(array $params = []): \Illuminate\Testing\TestResponse
-    {
-        return $this->actingAs($this->employee)
-            ->withHeaders(['Accept' => 'application/json'])
-            ->get(route('leave-requests.check-occupancy', $params));
     }
 
     // Validation
@@ -222,5 +217,12 @@ class LeaveRequestCheckOccupancyTest extends TestCase
             ]));
 
         $response->assertUnauthorized();
+    }
+
+    private function checkOccupancy(array $params = []): \Illuminate\Testing\TestResponse
+    {
+        return $this->actingAs($this->employee)
+            ->withHeaders(['Accept' => 'application/json'])
+            ->get(route('leave-requests.check-occupancy', $params));
     }
 }
